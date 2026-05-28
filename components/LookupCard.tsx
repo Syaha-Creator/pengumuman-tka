@@ -15,25 +15,31 @@ function SchoolIcon() {
 }
 
 type Props = {
-  nisn: string;
+  nama: string;
+  tanggalLahir: string;
   loading: boolean;
   error: string;
-  onNisnChange: (v: string) => void;
+  onNamaChange: (v: string) => void;
+  onTanggalLahirChange: (v: string) => void;
   onSubmit: (e: FormEvent) => void;
 };
 
 export default function LookupCard({
-  nisn,
+  nama,
+  tanggalLahir,
   loading,
   error,
-  onNisnChange,
+  onNamaChange,
+  onTanggalLahirChange,
   onSubmit,
 }: Props) {
   const schoolName =
-    process.env.NEXT_PUBLIC_SCHOOL_NAME || "SDN 03 Saradan";
+    process.env.NEXT_PUBLIC_SCHOOL_NAME || "SD Muhammadiyah 03 Comal";
   const schoolSubtitle =
     process.env.NEXT_PUBLIC_SCHOOL_SUBTITLE ||
     "Pengumuman Nilai TKA 2025/2026";
+
+  const isValid = nama.trim().length > 0 && tanggalLahir.trim().length > 0;
 
   return (
     <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm">
@@ -53,13 +59,24 @@ export default function LookupCard({
       {/* Form */}
       <form onSubmit={onSubmit}>
         <label className="block text-sm font-semibold text-gray-600 mb-1.5">
-          Nomor Induk Siswa (NISN)
+          Nama Lengkap
         </label>
         <input
           type="text"
-          value={nisn}
-          onChange={(e) => onNisnChange(e.target.value)}
-          placeholder="Masukkan NISN Anda"
+          value={nama}
+          onChange={(e) => onNamaChange(e.target.value)}
+          placeholder="Masukkan nama lengkap"
+          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-700 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent mb-4 transition"
+        />
+
+        <label className="block text-sm font-semibold text-gray-600 mb-1.5">
+          Tanggal Lahir
+        </label>
+        <input
+          type="text"
+          value={tanggalLahir}
+          onChange={(e) => onTanggalLahirChange(e.target.value)}
+          placeholder="Contoh: 24 Agustus 2013"
           className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-700 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent mb-3 transition"
         />
 
@@ -78,7 +95,7 @@ export default function LookupCard({
 
         <button
           type="submit"
-          disabled={loading || !nisn.trim()}
+          disabled={loading || !isValid}
           className="w-full bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-md shadow-indigo-200"
         >
           {loading ? (

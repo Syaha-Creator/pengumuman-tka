@@ -5,11 +5,12 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const nisn = request.nextUrl.searchParams.get("nisn")?.trim();
+  const nama = request.nextUrl.searchParams.get("nama")?.trim();
+  const ttl = request.nextUrl.searchParams.get("ttl")?.trim();
 
-  if (!nisn) {
+  if (!nama || !ttl) {
     return NextResponse.json(
-      { error: "Parameter NISN diperlukan" },
+      { error: "Nama dan tanggal lahir diperlukan" },
       { status: 400 }
     );
   }
@@ -24,13 +25,20 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
+
     const student = students.find(
-      (s) => String(s.NISN).trim() === nisn
+      (s) =>
+        normalize(s.Nama) === normalize(nama) &&
+        normalize(s.TTL).includes(normalize(ttl))
     );
 
     if (!student) {
       return NextResponse.json(
-        { error: "NISN tidak ditemukan. Periksa kembali nomor NISN Anda." },
+        {
+          error:
+            "Data tidak ditemukan. Pastikan nama dan tanggal lahir sesuai dengan data sekolah.",
+        },
         { status: 404 }
       );
     }

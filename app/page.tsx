@@ -6,27 +6,30 @@ import ResultCard from "@/components/ResultCard";
 import type { Student } from "@/types/student";
 
 export default function Home() {
-  const [nisn, setNisn] = useState("");
+  const [nama, setNama] = useState("");
+  const [tanggalLahir, setTanggalLahir] = useState("");
   const [student, setStudent] = useState<Student | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async (e: FormEvent) => {
     e.preventDefault();
-    if (!nisn.trim()) return;
+    if (!nama.trim() || !tanggalLahir.trim()) return;
 
     setLoading(true);
     setError("");
     setStudent(null);
 
     try {
-      const res = await fetch(
-        `/api/data?nisn=${encodeURIComponent(nisn.trim())}`
-      );
+      const params = new URLSearchParams({
+        nama: nama.trim(),
+        ttl: tanggalLahir.trim(),
+      });
+      const res = await fetch(`/api/data?${params}`);
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || "NISN tidak ditemukan.");
+        setError(data.error || "Data tidak ditemukan.");
       } else {
         setStudent(data.student);
       }
@@ -40,17 +43,20 @@ export default function Home() {
   const handleReset = () => {
     setStudent(null);
     setError("");
-    setNisn("");
+    setNama("");
+    setTanggalLahir("");
   };
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600 flex flex-col items-center justify-center p-4">
       {!student ? (
         <LookupCard
-          nisn={nisn}
+          nama={nama}
+          tanggalLahir={tanggalLahir}
           loading={loading}
           error={error}
-          onNisnChange={setNisn}
+          onNamaChange={setNama}
+          onTanggalLahirChange={setTanggalLahir}
           onSubmit={handleSearch}
         />
       ) : (
