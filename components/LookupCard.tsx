@@ -76,7 +76,7 @@ export default function LookupCard({
           type="text"
           value={tanggalLahir}
           onChange={(e) => onTanggalLahirChange(e.target.value)}
-          placeholder="Contoh: 24 Agustus 2013"
+          placeholder="Contoh: 1 Januari 2014"
           className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-700 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent mb-3 transition"
         />
 
