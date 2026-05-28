@@ -1,4 +1,3 @@
-import { readFileSync, writeFileSync, mkdirSync } from "fs";
 import { join } from "path";
 
 export type Student = {
@@ -28,6 +27,7 @@ export async function getStudents(): Promise<Student[]> {
     return res.json();
   } else {
     try {
+      const { readFileSync } = await import("fs");
       const data = readFileSync(LOCAL_DATA_PATH, "utf-8");
       return JSON.parse(data);
     } catch {
@@ -49,6 +49,7 @@ export async function saveStudents(students: Student[]): Promise<void> {
       addRandomSuffix: false,
     });
   } else {
+    const { mkdirSync, writeFileSync } = await import("fs");
     mkdirSync(join(process.cwd(), "data"), { recursive: true });
     writeFileSync(LOCAL_DATA_PATH, JSON.stringify(students, null, 2));
   }
