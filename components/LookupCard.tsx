@@ -42,7 +42,7 @@ export default function LookupCard({
   const isValid = nama.trim().length > 0 && tanggalLahir.trim().length > 0;
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm">
+    <div className="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-lg">
       {/* Icon */}
       <div className="flex justify-center mb-5">
         <div className="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center shadow-lg">
