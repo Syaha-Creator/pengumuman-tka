@@ -15,10 +15,10 @@ function Row({
   highlight?: boolean;
 }) {
   return (
-    <div className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
-      <span className="text-sm text-gray-500">{label}</span>
+    <div className="flex items-start justify-between py-2 border-b border-gray-100 last:border-0 gap-4">
+      <span className="text-sm text-gray-500 shrink-0">{label}</span>
       <span
-        className={`font-semibold text-right max-w-[60%] ${
+        className={`font-semibold text-right ${
           highlight ? "text-indigo-600 text-lg" : "text-gray-800 text-sm"
         }`}
       >
@@ -46,7 +46,6 @@ export default function ResultCard({ student, onReset }: Props) {
       </div>
 
       <div className="mb-5">
-        <Row label="NISN" value={String(student.NISN)} />
         <Row label="Nama" value={student.Nama} />
         <Row label="Tempat, Tanggal Lahir" value={student.TTL} />
       </div>
@@ -71,7 +70,7 @@ export default function ResultCard({ student, onReset }: Props) {
         onClick={onReset}
         className="w-full text-sm text-indigo-500 hover:text-indigo-700 font-medium py-2 rounded-lg hover:bg-indigo-50 transition-colors"
       >
-        ← Cari NISN Lain
+        ← Cari Siswa Lain
       </button>
     </div>
   );
