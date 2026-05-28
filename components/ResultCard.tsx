@@ -5,13 +5,6 @@ type Props = {
   onReset: () => void;
 };
 
-function getKeterangan(nilai: number): { label: string; color: string } {
-  if (nilai >= 80) return { label: "Baik Sekali", color: "text-emerald-600 bg-emerald-50" };
-  if (nilai >= 60) return { label: "Baik", color: "text-blue-600 bg-blue-50" };
-  if (nilai >= 40) return { label: "Memadai", color: "text-amber-600 bg-amber-50" };
-  return { label: "Kurang", color: "text-red-500 bg-red-50" };
-}
-
 function ScoreBox({
   subject,
   value,
@@ -19,17 +12,12 @@ function ScoreBox({
   subject: string;
   value: string | number;
 }) {
-  const score = parseFloat(String(value));
-  const ket = getKeterangan(score);
   return (
     <div className="flex-1 bg-white rounded-2xl border border-indigo-100 p-5 flex flex-col items-center gap-2 shadow-sm">
       <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide text-center">
         {subject}
       </p>
       <p className="text-4xl font-bold text-indigo-600">{value}</p>
-      <span className={`text-xs font-semibold px-3 py-1 rounded-full ${ket.color}`}>
-        {ket.label}
-      </span>
     </div>
   );
 }
