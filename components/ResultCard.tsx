@@ -1,4 +1,4 @@
-import { Student } from "@/lib/storage";
+import type { Student } from "@/types/student";
 
 type Props = {
   student: Student;

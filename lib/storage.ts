@@ -1,12 +1,7 @@
 import { join } from "path";
+import type { Student } from "@/types/student";
 
-export type Student = {
-  NISN: string;
-  Nama: string;
-  TTL: string;
-  "Nilai MTK": string | number;
-  "Nilai Bahasa Indonesia": string | number;
-};
+export type { Student };
 
 const LOCAL_DATA_PATH = join(process.cwd(), "data", "students.json");
 

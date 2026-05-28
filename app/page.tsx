@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import LookupCard from "@/components/LookupCard";
 import ResultCard from "@/components/ResultCard";
-import { Student } from "@/lib/storage";
+import type { Student } from "@/types/student";
 
 export default function Home() {
   const [nisn, setNisn] = useState("");
