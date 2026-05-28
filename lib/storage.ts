@@ -18,7 +18,12 @@ export async function getStudents(): Promise<Student[]> {
       (a, b) =>
         new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()
     )[0];
-    const res = await fetch(latest.url, { cache: "no-store" });
+    const res = await fetch(latest.url, {
+      headers: {
+        Authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}`,
+      },
+      cache: "no-store",
+    });
     return res.json();
   } else {
     try {
@@ -39,7 +44,7 @@ export async function saveStudents(students: Student[]): Promise<void> {
       await del(blobs.map((b) => b.url));
     }
     await put("students-data.json", JSON.stringify(students), {
-      access: "public",
+      access: "private",
       contentType: "application/json",
       addRandomSuffix: false,
     });
